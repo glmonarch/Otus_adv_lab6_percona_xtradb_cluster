@@ -1,0 +1,53 @@
+---
+- meta: end_play
+  when: (ansible_distribution != "CentOS" and ansible_distribution_major_version != "7")
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Stop and disable Network Manager
+  systemd:
+    name: NetworkManager
+    enabled: no
+    state: stopped
+
+- name: Install epel-release
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - epel-release
+    - yum-utils
+
+- name: Set hostname
+  hostname: 
+    name: "{{ ansible_hostname }}.{{ domain }}"
+
+#- name: Add my own IP address to /etc/hosts instead localhost
+#  replace:
+#    path: "/etc/hosts"
+#    regexp: '^127\.0\.1\.1(\s+){{ ansible_hostname }}(\s+){{ ansible_hostname }}.*'
+#    replace: "{{ ansible_host }} {{ ansible_hostname }}.{{ domain }} {{ ansible_hostname }}"
+
+#- name: Add node1 to /etc/hosts
+#  lineinfile:
+#    path: "/etc/hosts"
+#    state: present
+#    line: "172.16.1.13 db1.{{ domain }} {{ ansible_hostname }}"
+#  when: (ansible_hostname != "db1")
+
+#- name: Add node2 to /etc/hosts
+#  lineinfile:
+#    path: "/etc/hosts"
+#    state: present
+#    line: "192.168.1.11 node1.{{ domain }} {{ ansible_hostname }}"
+#  when: (ansible_hostname != "node1")
+
+#- name: Add db1 to /etc/hosts
+#  lineinfile:
+#    path: "/etc/hosts"
+#    state: present
+#    line: "192.168.1.12 node2.{{ domain }} {{ ansible_hostname }}"
+#  when: (ansible_hostname != "node2")

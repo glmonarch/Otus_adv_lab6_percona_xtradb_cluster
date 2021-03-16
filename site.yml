@@ -1,0 +1,26 @@
+- hosts: db1, node1, node2
+  become: true
+  tags: all
+  roles:
+    - { role: 'all_servers_basic_config' }
+  vars_files:
+    - ./vars.yml
+  
+- hosts: node1, node2
+  become: true
+  tags: cluster
+  roles:
+    - { role: 'web_servers_config' }
+  vars_files:
+    - ./vars.yml
+
+- hosts: db1
+  become: true
+  tags: db
+  roles:
+    - { role: 'db_servers_config' }
+  vars_files:
+    - ./vars.yml
+  
+
+

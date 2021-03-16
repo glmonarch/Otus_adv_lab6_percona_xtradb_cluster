@@ -1,0 +1,4 @@
+domain: "domain.local"
+ntp_timezone: "UTC"
+mysql_root_password: "Otus_1234567"
+remote_host: '%'
