@@ -1,0 +1,1 @@
+# Otus_adv_lab6_percona_xtradb_cluster
