@@ -1,0 +1,7 @@
+- hosts: dbcluster
+  become: true
+  tags: all
+  roles:
+    - { role: 'pxc_setup' }
+  vars_files:
+    - ./vars.yml

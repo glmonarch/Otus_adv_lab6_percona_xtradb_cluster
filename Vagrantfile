@@ -26,13 +26,21 @@ nodes = {
     #        ]
   },
   
-  #:client1 => {
-    #:box_name => "centos/7",
-    #:box_version => "1902.01",
+  :db2 => {
+    :box_name => "centos/7",
+    :box_version => "1902.01",
     #:net => [
     #          {ip: '192.168.1.13', adapter: 2, netmask: "255.255.255.0", virtualbox__intnet: "net192"},
     #        ]
-  #},
+  },
+
+  :db3 => {
+    :box_name => "centos/7",
+    :box_version => "1902.01",
+    #:net => [
+    #          {ip: '192.168.1.13', adapter: 2, netmask: "255.255.255.0", virtualbox__intnet: "net192"},
+    #        ]
+  },
   
 }
 
@@ -58,6 +66,13 @@ Vagrant.configure(2) do |config|
       db1.vm.network "private_network", ip: "10.0.0.13", adapter: 2
     end
 
+    config.vm.define "db2" do |db2|
+      db2.vm.network "private_network", ip: "10.0.0.14", adapter: 2
+    end
+
+    config.vm.define "db3" do |db2|
+      db2.vm.network "private_network", ip: "10.0.0.15", adapter: 2
+    end
 
     config.vm.define boxname do |box|
 
@@ -79,10 +94,10 @@ Vagrant.configure(2) do |config|
       vb.cpus = 1 
     end
 
-    box.vm.provision "ansible" do |ansible|
-      ansible.playbook = "site.yml"
-      ansible.become = true
-    end
+    #box.vm.provision "ansible" do |ansible|
+    #  ansible.playbook = "test_basic.yml"
+    #  ansible.become = true
+    #end
     
     end
   end
