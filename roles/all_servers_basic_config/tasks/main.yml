@@ -12,7 +12,7 @@
     enabled: no
     state: stopped
 
-- name: Install epel-release
+- name: Install required software
   yum:
     name: "{{ packages }}"
     state: present
@@ -20,6 +20,16 @@
     packages:
     - epel-release
     - yum-utils
+
+- name: Install python2-PyMySQL
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - python2-PyMySQL
+    - python2-cryptography #for work with MySQL 8+ versions with sha256_password or caching_sha2_password
+  when: (ansible_hostname == "db2")
 
 - name: Set hostname
   hostname: 

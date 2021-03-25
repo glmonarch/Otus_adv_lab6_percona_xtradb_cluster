@@ -41,6 +41,14 @@ nodes = {
     #          {ip: '192.168.1.13', adapter: 2, netmask: "255.255.255.0", virtualbox__intnet: "net192"},
     #        ]
   },
+
+  :dbproxy => {
+    :box_name => "centos/7",
+    :box_version => "1902.01",
+    #:net => [
+    #          {ip: '192.168.1.13', adapter: 2, netmask: "255.255.255.0", virtualbox__intnet: "net192"},
+    #        ]
+  },
   
 }
 
@@ -74,6 +82,11 @@ Vagrant.configure(2) do |config|
       db2.vm.network "private_network", ip: "10.0.0.15", adapter: 2
     end
 
+    config.vm.define "dbproxy" do |dbproxy|
+      dbproxy.vm.network "private_network", ip: "192.168.100.20", adapter: 2
+      dbproxy.vm.network "private_network", ip: "10.0.0.20", adapter: 3
+    end
+
     config.vm.define boxname do |box|
 
     box.vm.box = boxconfig[:box_name]
@@ -88,7 +101,7 @@ Vagrant.configure(2) do |config|
     #end
          
 	  box.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "512"]
+      vb.customize ["modifyvm", :id, "--memory", "256"]
       vb.customize ["modifyvm", :id, "--audio", "none"]
       vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
       vb.cpus = 1 
