@@ -1,7 +1,0 @@
-- hosts: dbproxy
-  become: true
-  tags: all
-  roles:
-    - { role: 'proxysql' }
-  vars_files:
-    - ./vars.yml

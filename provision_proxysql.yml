@@ -3,5 +3,6 @@
   tags: all
   roles:
     - { role: 'all_servers_basic_config' }
+    - { role: 'proxysql' }
   vars_files:
     - ./vars.yml

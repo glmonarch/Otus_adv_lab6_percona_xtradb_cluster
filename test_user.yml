@@ -1,7 +1,0 @@
-- hosts: db2
-  become: true
-  tags: all
-  roles:
-    - { role: 'user' }
-  vars_files:
-    - ./vars.yml
