@@ -1,11 +1,6 @@
-- hosts: localhost
-  tasks:
-    - debug:
-        msg: Starting provision for LAB6...
-  
-- name: Include all necessary playbooks
-  import_playbook: provision_pxc.yml
-  import_playbook: provision_proxysql.yml
-  import_playbook: provision_web.yml
+---
+- import_playbook: provision_pxc.yml
+- import_playbook: provision_proxysql.yml
+- import_playbook: provision_web.yml
 
 

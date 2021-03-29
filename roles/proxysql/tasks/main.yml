@@ -45,11 +45,11 @@
   copy:
     src: proxysql.cnf
     dest: /etc/proxysql.cnf
-    owner: root
-    group: root
+    owner: proxysql
+    group: proxysql
     mode: '0640'
     #backup: yes
   
-#- name: Start ProxySQL with configuration from config file /etc/proxysql.cnf
-#  shell: proxysql --initial
+- name: Start ProxySQL with configuration from config file /etc/proxysql.cnf
+  shell: sudo -u proxysql proxysql --initial
    
